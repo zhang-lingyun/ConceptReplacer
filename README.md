@@ -1,4 +1,4 @@
-# Concept Replacer: Replacing Sensitive Concepts in Diffusion Models via Precision Localization
+# ![WIP Status](https://img.shields.io/badge/status-WIP-yellow)]Concept Replacer: Replacing Sensitive Concepts in Diffusion Models via Precision Localization![WIP Status](https://img.shields.io/badge/status-WIP-yellow)]
 ###  [Arxiv Preprint](https://arxiv.org/abs/2412.01244),  [CVPR Paper](https://openaccess.thecvf.com/content/CVPR2025/papers/Zhang_Concept_Replacer_Replacing_Sensitive_Concepts_in_Diffusion_Models_via_Precision_CVPR_2025_paper.pdf)
 
 ## Installation Guide
