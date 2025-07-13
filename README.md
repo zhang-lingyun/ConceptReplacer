@@ -2,7 +2,7 @@
 ###  [Arxiv Preprint](https://arxiv.org/abs/2412.01244),  [CVPR Paper](https://openaccess.thecvf.com/content/CVPR2025/papers/Zhang_Concept_Replacer_Replacing_Sensitive_Concepts_in_Diffusion_Models_via_Precision_CVPR_2025_paper.pdf)
 
 ## Installation Guide
-To begin using SLiMe, you first need to create a virtual environment and install the dependencies using the following commands:
+To begin using Concept Replacer, you first need to create a virtual environment and install the dependencies using the following commands:
 ```
 conda create -n concept_replacer
 conda activate concept_replacer
