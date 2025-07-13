@@ -418,11 +418,11 @@ class LoRAAttnProcessor(nn.Module):
         self.cross_attention_dim = cross_attention_dim
         self.rank = rank
 
-        self.to_q_lora = nn.Linear(hidden_size, hidden_size, bias=False)
-        self.to_k_lora = nn.Linear(cross_attention_dim or hidden_size, hidden_size, bias=False)
+        self.to_q_linear = nn.Linear(hidden_size, hidden_size, bias=False)
+        self.to_k_linear = nn.Linear(cross_attention_dim or hidden_size, hidden_size, bias=False)
  
-        torch.nn.init.normal_(self.to_k_lora.weight, mean=0.01, std=0.01)
-        torch.nn.init.normal_(self.to_q_lora.weight, mean=0.01, std=0.01)
+        torch.nn.init.normal_(self.to_q_linear.weight, mean=0.01, std=0.01)
+        torch.nn.init.normal_(self.to_k_linear.weight, mean=0.01, std=0.01)
 
     def __call__(self, attn: Attention, hidden_states, encoder_hidden_states=None, attention_mask=None, scale=1.0):
         # print("LoRAAttnProcessor....")
@@ -432,7 +432,7 @@ class LoRAAttnProcessor(nn.Module):
         )
         attention_mask = attn.prepare_attention_mask(attention_mask, sequence_length, batch_size)
 
-        location_query = attn.to_q(hidden_states) + scale * self.to_q_lora(hidden_states)
+        location_query = attn.to_q(hidden_states) + scale * self.to_q_linear(hidden_states)
         location_query = attn.head_to_batch_dim(location_query)
 
         query = attn.to_q(hidden_states)
@@ -443,7 +443,7 @@ class LoRAAttnProcessor(nn.Module):
         elif attn.norm_cross:
             encoder_hidden_states = attn.norm_encoder_hidden_states(encoder_hidden_states)
 
-        location_key = attn.to_k(encoder_hidden_states) + scale * self.to_k_lora(encoder_hidden_states)
+        location_key = attn.to_k(encoder_hidden_states) + scale * self.to_k_linear(encoder_hidden_states)
         key = attn.to_k(encoder_hidden_states)
         value = attn.to_v(encoder_hidden_states)
 
@@ -459,7 +459,6 @@ class LoRAAttnProcessor(nn.Module):
         _, attention_scores = attn.get_attention_scores(location_query, location_key, attention_mask)
         
         # linear proj
-        # hidden_states = attn.to_out[0](hidden_states) + scale * self.to_out_lora(hidden_states)
         hidden_states = attn.to_out[0](hidden_states)
         # dropout
         hidden_states = attn.to_out[1](hidden_states)
