@@ -9,7 +9,7 @@ conda activate concept_replacer
 pip install -r requirements.txt
 ```
 ## Concept Location
-The main change is maded in attention_processor.py,unet_2d_condition.py in diffusers/models.
+The main change of diffusers is made in diffusers/models/attention_processor.py, unet_2d_condition.py.
 ### Training Guide
 ```
 python3 -m src.main --dataset_name {DATASET_NAME} \
